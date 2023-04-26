@@ -8,3 +8,8 @@ output: html_document
 Team members: Alison Wyatt, Kylie Knudten
 
 Data set: 
+
+```{r}
+ufo = read.csv("https://raw.githubusercontent.com/aawyatt/DS202-Final-Project/main/complete.csv")
+```
+
