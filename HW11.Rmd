@@ -15,8 +15,10 @@ ufo = read.csv("https://raw.githubusercontent.com/aawyatt/DS202-Final-Project/ma
 head(ufo)
 
 str(ufo)
+
+unique(ufo$country)
 ```
-We will be using a UFO dataset to see if certain states have more UFO sightings than other states in the US. The UFO dataset has 11 variables, but we will only be using city, state, country, shape, duration..seconds., date.posted, latitude, and longitude variables. Each observation is one UFO sighting and gives the location of the sighting (both city and latititude/longitude) as well as how long it lasted and the shape of the sighting. We will layer this dataset with the map of the United States to plot where the sightings were. 
+We will be using a UFO dataset to see if certain states have more UFO sightings than other states in the US. The UFO dataset has 11 variables, but we will only be using city, state, country, shape, duration..seconds., date.posted, latitude, and longitude variables. Each observation is one UFO sighting and gives the location of the sighting (both city and latitude/longitude) as well as how long it lasted and the shape of the sighting. We will layer this dataset with the map of the United States to plot where the sightings were. 
 
 Steps for cleaning the dataset:
 1. Filter out all countries except for country = "us". 
