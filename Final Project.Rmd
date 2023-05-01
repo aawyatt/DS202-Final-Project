@@ -16,10 +16,21 @@ ufo = read.csv("https://raw.githubusercontent.com/aawyatt/DS202-Final-Project/ma
 Our question:
 Is there a region of the US that has the most UFO sightings?
 
+```{r}
+library(dplyr)
+```
+
 ## Step 1: Cleaning
 
 ```{r}
+# Steps for cleaning the dataset:
 
+# 1. Filter out all countries except for country = "us". 
+ufo1 = ufo %>% filter(ufo$country == "us")
+
+# 2. Capitalize state and city values for cleanliness.
+
+#3. Extract just the year value from date.posted variable.
 ```
 
 ## Step 2: Visual summary (6 out of 8 candidate plots)
