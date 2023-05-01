@@ -18,10 +18,12 @@ Is there a region of the US that has the most UFO sightings?
 
 ```{r}
 library(dplyr)
+library(stringr)
+library(lubridate)
 ```
 
 ## Step 1: Cleaning
-
+Note: Because of the need for 10 variables, we have included two more variables from what was included in our HW 11 submission (datetime and duration..hours.min.)
 ```{r}
 # Steps for cleaning the dataset:
 
@@ -29,8 +31,18 @@ library(dplyr)
 ufo1 = ufo %>% filter(ufo$country == "us")
 
 # 2. Capitalize state and city values for cleanliness.
+ufo1 = ufo1 %>% mutate(state = toupper(state), city = str_to_title(city))
+ufo1
 
 #3. Extract just the year value from date.posted variable.
+ufo1$date.posted = mdy(ufo1$date.posted)
+ufo1 = ufo1 %>% mutate(date.posted = year(date.posted))
+ufo1
+
+# 4. Extract just the time value from the datetime variable.
+ufo1$datetime = mdy_hm(ufo1$datetime)
+ufo1 = ufo1 %>% mutate(datetime = hour(datetime))
+ufo1
 ```
 
 ## Step 2: Visual summary (6 out of 8 candidate plots)
