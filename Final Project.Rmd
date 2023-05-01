@@ -13,3 +13,8 @@ Data set:
 ufo = read.csv("https://raw.githubusercontent.com/aawyatt/DS202-Final-Project/main/complete.csv")
 ```
 
+Our question:
+Is there a region of the US that has the most UFO sightings?
+
+## Step 1: Cleaning
+
