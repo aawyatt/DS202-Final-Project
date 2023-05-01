@@ -18,3 +18,15 @@ Is there a region of the US that has the most UFO sightings?
 
 ## Step 1: Cleaning
 
+```{r}
+
+```
+
+## Step 2: Visual summary (6 out of 8 candidate plots)
+
+```{r}
+
+```
+
+## Step 3: Analysis results and conclusions
+
