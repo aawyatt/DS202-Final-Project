@@ -24,7 +24,7 @@ library(ggplot2)
 ```
 
 ## Step 1: Cleaning
-Note: Because of the need for 10 variables, we have included two more variables from what was included in our HW 11 submission (datetime and duration..hours.min.)
+Note: Because of the need for 10 variables, we have included one more variable from what was included in our HW 11 submission ('datetime') and joined another data set to get a new variable of state 'region'.
 ```{r}
 # Steps for cleaning the dataset:
 
