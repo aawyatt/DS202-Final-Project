@@ -48,7 +48,7 @@ ufo1
 
 ## Step 2: Visual summary (6 out of 8 candidate plots)
 
-### Bar graph
+### Bar graph (regions)
 ```{r}
 ufo1 %>% group_by(state) %>% count() %>% ggplot(aes(x = state)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5))
 ```
