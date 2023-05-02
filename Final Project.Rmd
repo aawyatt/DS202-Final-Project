@@ -78,7 +78,7 @@ ufo1
 
 ## Step 2: Visual summary (6 out of 8 candidate plots)
 
-### Bar graph (regions)
+### Bar graph (state breakdown and top 5 cities)
 ```{r}
 # Overall look at sightings by state
 ufo1 %>% group_by(Abbreviation) %>% count() %>% ggplot(aes(x = Abbreviation)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5))
@@ -87,6 +87,16 @@ ufo1 %>% group_by(Abbreviation) %>% count() %>% ggplot(aes(x = Abbreviation)) + 
 ufo2 = ufo1 %>% group_by(Abbreviation) %>% summarise(n=n()) %>% arrange(desc(n))
 ufo2 = ufo2[1 : 5, ]
 ufo2 %>% ggplot(aes(x = Abbreviation)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5), axis.text.x=element_text(size=10),axis.text.y=element_text(size=10))
+
+# Bottom 5 states with least sightings
+ufo3 = ufo1 %>% group_by(Abbreviation) %>% summarise(n=n()) %>% arrange(n)
+ufo3 = ufo3[1 : 5, ]
+ufo3 %>% ggplot(aes(x = Abbreviation)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5), axis.text.x=element_text(size=10),axis.text.y=element_text(size=10))
+
+# Top 5 cities with most sightings
+ufo4 = ufo1 %>% group_by(city) %>% summarise(n=n()) %>% arrange(desc(n))
+ufo4 = ufo4[1 : 5, ]
+ufo4 %>% ggplot(aes(x = city)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5), axis.text.x=element_text(size=10),axis.text.y=element_text(size=10))
 ```
 We can see that California had the most sightings by far, with DC and Puerto Rico having the least. 
 
