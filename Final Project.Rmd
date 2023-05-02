@@ -33,17 +33,14 @@ ufo1 = ufo %>% filter(ufo$country == "us")
 
 # 2. Capitalize state and city values for cleanliness.
 ufo1 = ufo1 %>% mutate(state = toupper(state), city = str_to_title(city))
-ufo1
 
 #3. Extract just the year value from date.posted variable.
 ufo1$date.posted = mdy(ufo1$date.posted)
 ufo1 = ufo1 %>% mutate(date.posted = year(date.posted))
-ufo1
 
 # 4. Extract just the time value from the datetime variable.
 ufo1$datetime = mdy_hm(ufo1$datetime)
 ufo1 = ufo1 %>% mutate(datetime = hour(datetime))
-ufo1
 
 library(maps)
 # states data
@@ -75,6 +72,8 @@ ufo1 = ufo1 %>% select(-duration..hours.min., -comments)
 
 # rename long/lat variables for clarity
 ufo1 = ufo1 %>% rename(long.border = long, lat.border = lat)
+
+ufo1
 ```
 
 ## Step 2: Visual summary (6 out of 8 candidate plots)
@@ -103,6 +102,8 @@ There was the lowest recording sightings in 1998, and then a rise in sightings u
 
 ### Mosaic plot (regions vs shape)
 
+
+### Boxplot(shape vs number of sightings)
 
 ## Step 3: Analysis results and conclusions
 
