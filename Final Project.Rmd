@@ -103,7 +103,7 @@ There was the lowest recording sightings in 1998, and then a rise in sightings u
 
 ```
 
-### Histogram (seconds)
+### Histogram (datetime)
 
 
 ### Mosaic plot (regions vs shape)
