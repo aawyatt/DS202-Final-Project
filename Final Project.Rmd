@@ -67,6 +67,7 @@ library(maps)
 states = map_data("state") %>% mutate(region = str_to_title(region)) %>% rename(State = region)
 # table with the states/abbreviations
 abbr = read.csv("https://raw.githubusercontent.com/jasonong/List-of-US-States/master/states.csv")
+# table with regions
 
 ufo1 = ufo1 %>% rename(Abbreviation = state) %>% filter(Abbreviation != "PR")
 
@@ -79,7 +80,10 @@ nomatch2 = states %>% anti_join(ufo1, by = "State")
 unique(nomatch2$State)
 ```
 
+### Histogram (seconds)
 
+
+### Mosaic plot (regions vs shape)
 
 
 ## Step 3: Analysis results and conclusions
