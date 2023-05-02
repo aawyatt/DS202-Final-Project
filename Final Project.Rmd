@@ -81,7 +81,7 @@ ufo1 = ufo1 %>% rename(long.border = long, lat.border = lat)
 
 ### Bar graph (regions)
 ```{r}
-ufo1 %>% group_by(state) %>% count() %>% ggplot(aes(x = state)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5))
+ufo1 %>% group_by(Abbreviation) %>% count() %>% ggplot(aes(x = Abbreviation)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5))
 ```
 We can see that California had the most sightings by far, with DC and Puerto Rico having the least. 
 
