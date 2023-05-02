@@ -20,6 +20,7 @@ Is there a region of the US that has the most UFO sightings?
 library(dplyr)
 library(stringr)
 library(lubridate)
+library(ggplot2)
 ```
 
 ## Step 1: Cleaning
@@ -47,9 +48,39 @@ ufo1
 
 ## Step 2: Visual summary (6 out of 8 candidate plots)
 
+### Bar graph
 ```{r}
-
+ufo1 %>% group_by(state) %>% count() %>% ggplot(aes(x = state)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5))
 ```
+We can see that California had the most sightings by far, with DC and Puerto Rico having the least. 
+
+### Time series graph
+```{r}
+ufo1 %>% group_by(date.posted) %>% count() %>% ggplot(aes(x = date.posted, y = n)) + geom_line() + geom_point() +  geom_text(aes(label = date.posted))
+```
+There was the lowest recording sightings in 1998, and then a rise in sightings until it peaked in 2012 and then the number of sightings declined. 
+
+### Map plot
+
+```{r}
+library(maps)
+states = map_data("state") %>% mutate(region = str_to_title(region)) %>% rename(State = region)
+# table with the states/abbreviations
+abbr = read.csv("https://raw.githubusercontent.com/jasonong/List-of-US-States/master/states.csv")
+
+ufo1 = ufo1 %>% rename(Abbreviation = state) %>% filter(Abbreviation != "PR")
+
+ufo1 = right_join(ufo1, abbr, by = "Abbreviation")
+# states for which we do not have map data
+nomatch1 = ufo1 %>% anti_join(states, by = "State")
+unique(nomatch1$State)
+# states for which we do not have ufo data
+nomatch2 = states %>% anti_join(ufo1, by = "State")
+unique(nomatch2$State)
+```
+
+
+
 
 ## Step 3: Analysis results and conclusions
 
