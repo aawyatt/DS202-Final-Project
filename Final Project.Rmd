@@ -44,6 +44,37 @@ ufo1
 ufo1$datetime = mdy_hm(ufo1$datetime)
 ufo1 = ufo1 %>% mutate(datetime = hour(datetime))
 ufo1
+
+library(maps)
+# states data
+states = map_data("state") %>% mutate(region = str_to_title(region)) %>% rename(State = region)
+# table with the states/abbreviations
+abbr = read.csv("https://raw.githubusercontent.com/jasonong/List-of-US-States/master/states.csv")
+# table with regions
+region = read.csv("https://raw.githubusercontent.com/cphalpert/census-regions/master/us%20census%20bureau%20regions%20and%20divisions.csv")
+
+
+ufo1 = ufo1 %>% rename(Abbreviation = state) %>% filter(Abbreviation != "PR")
+
+ufo1 = right_join(ufo1, abbr, by = "Abbreviation")
+# states for which we do not have map data
+nomatch1 = ufo1 %>% anti_join(states, by = "State")
+unique(nomatch1$State)
+# states for which we do not have ufo data
+nomatch2 = states %>% anti_join(ufo1, by = "State")
+unique(nomatch2$State)
+# remove data for which we don't have map/ufo data for
+ufo1 = ufo1 %>% filter(!(State %in% c("Hawaii", "Alaska", "District of Columbia")))
+# add state map information to ufo1
+ufo1 = ufo1 %>% left_join(states, by = "State") %>% select(-group, -order, -subregion)
+# add region information to ufo1
+ufo1 = ufo1 %>% left_join(region, by = "State") %>% select(-State.Code, -Division)
+
+# get rid of unnecessary columns
+ufo1 = ufo1 %>% select(-duration..hours.min., -comments)
+
+# rename long/lat variables for clarity
+ufo1 = ufo1 %>% rename(long.border = long, lat.border = lat)
 ```
 
 ## Step 2: Visual summary (6 out of 8 candidate plots)
@@ -63,21 +94,8 @@ There was the lowest recording sightings in 1998, and then a rise in sightings u
 ### Map plot
 
 ```{r}
-library(maps)
-states = map_data("state") %>% mutate(region = str_to_title(region)) %>% rename(State = region)
-# table with the states/abbreviations
-abbr = read.csv("https://raw.githubusercontent.com/jasonong/List-of-US-States/master/states.csv")
-# table with regions
 
-ufo1 = ufo1 %>% rename(Abbreviation = state) %>% filter(Abbreviation != "PR")
 
-ufo1 = right_join(ufo1, abbr, by = "Abbreviation")
-# states for which we do not have map data
-nomatch1 = ufo1 %>% anti_join(states, by = "State")
-unique(nomatch1$State)
-# states for which we do not have ufo data
-nomatch2 = states %>% anti_join(ufo1, by = "State")
-unique(nomatch2$State)
 ```
 
 ### Histogram (seconds)
