@@ -126,7 +126,8 @@ library(ggmosaic)
 
 ufo5 = ufo1 %>% filter(shape != "") %>% group_by(shape) %>% count() %>% arrange(desc(n))
 ufo5 = ufo5[1:5, ]
-ufo1 %>% filter(shape %in% ufo5$shape) %>% ggplot() + geom_mosaic(aes(x = shape, fill = factor(region), weight = 1))
+ufo5$shape = factor(ufo5$shape)
+ufo1%>% filter(shape %in% ufo5$shape) %>% ggplot() + geom_mosaic(aes(x=product(shape), fill=Region, weight=1))
 ```
 
 
