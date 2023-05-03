@@ -7,6 +7,8 @@ output: html_document
 
 Team members: Alison Wyatt, Kylie Knudten
 
+github link: https://github.com/aawyatt/DS202-Final-Project
+
 Data set: We got this dataset from Kaggle.
 
 ```{r}
