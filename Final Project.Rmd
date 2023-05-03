@@ -109,8 +109,8 @@ This graph shows the number of sightings by year. There was the lowest recording
 ### Map plot
 
 ```{r}
-#ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group = group)) +
-#  geom_point(aes(x = longitude, y = as.numeric(latitude)))
+ufo1$latitude = as.numeric(ufo1$latitude)
+ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group= group)) + geom_point(aes(x=longitude,y=latitude), size=0.05, color = 'red', data = ufo1 %>% filter(longitude < 0, longitude > -130))
 ```
 
 ### Histogram (datetime)
