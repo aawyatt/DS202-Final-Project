@@ -81,7 +81,7 @@ ufo1
 ### Bar graph (state breakdown and top 5 cities)
 ```{r}
 # Overall look at sightings by state
-ufo1 %>% group_by(Abbreviation) %>% count() %>% ggplot(aes(x = Abbreviation)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5))
+ufo1 %>% group_by(Region, Abbreviation) %>% count() %>% ggplot(aes(x = Abbreviation)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5)) + facet_wrap(~Region)
 
 # Top 5 states with most sightings
 ufo2 = ufo1 %>% group_by(Abbreviation) %>% summarise(n=n()) %>% arrange(desc(n))
@@ -98,18 +98,19 @@ ufo4 = ufo1 %>% group_by(city) %>% summarise(n=n()) %>% arrange(desc(n))
 ufo4 = ufo4[1 : 5, ]
 ufo4 %>% ggplot(aes(x = city)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5), axis.text.x=element_text(size=10),axis.text.y=element_text(size=10))
 ```
-We can see that California had the most sightings by far, with DC and Puerto Rico having the least. 
+We can see that California had the most sightings by far, with North Dakota having the least. The top states with the most sightings were California, Florida, Michigan, Texas, and Washington. The 5 states with the least sightings were South Dakota, Delaware, Rhode Island, Wyoming, and North Dakota. The 5 cities with the most sightings are Houston, Seattle, Austin, Miami, and San Antonio. 3 out of the 5 cities are in Texas.
 
 ### Time series graph
 ```{r}
 ufo1 %>% group_by(date.posted) %>% count() %>% ggplot(aes(x = date.posted, y = n)) + geom_line() + geom_point() +  geom_text(aes(label = date.posted))
 ```
-There was the lowest recording sightings in 1998, and then a rise in sightings until it peaked in 2012 and then the number of sightings declined. 
+This graph shows the number of sightings by year. There was the lowest recording sightings in 1998, and then a rise in sightings until it peaked in 2012 and then the number of sightings declined. 
 
 ### Map plot
 
 ```{r}
-ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group = group)) +geom_point(aes(x = longitude, y = latitude))
+#ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group = group)) +
+#  geom_point(aes(x = longitude, y = as.numeric(latitude)))
 ```
 
 ### Histogram (datetime)
@@ -117,7 +118,7 @@ ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group = gr
 ```{r}
 ufo1 %>% ggplot(aes(x = datetime)) + geom_histogram(bins = 10)
 ```
-
+This histogram shows the number of sightings during the time of day. The values go from 0 to 23 for the 24 hours in a day. It looks like the most sightings are later in the night with the least sightings during the day when it's bright out, which makes sense. 
 
 
 ### Mosaic plot (regions vs shape)
@@ -129,14 +130,15 @@ ufo5 = ufo5[1:5, ]
 ufo5$shape = factor(ufo5$shape)
 ufo1%>% filter(shape %in% ufo5$shape) %>% ggplot() + geom_mosaic(aes(x=product(shape), fill=Region, weight=1))
 ```
-
+This mosaic plot shows the top 5 shapes of the UFO sighting and the region it was in. We had to take the top 5 shapes that were recorded, because there were around 29 unique shapes, and that's hard to visualize. We can see that the shape 'light' had the most sightings, and the South region had the most sightings. All 4 regions had a similar distribution of the shape of the sighting.
 
 
 ### Boxplot(shape vs length of sighting)
 ```{r}
 ufo1 %>% filter(shape %in% ufo5$shape) %>% ggplot(aes(x = shape, y = log(as.numeric(duration..seconds.)))) + geom_boxplot() 
 ```
-
+This boxplot shows the distribution of the length of the sighting by the top 5 shapes. We had to transform the duration in seconds variable to the log of the values to be able to see the entire spread of the variable. We see that the shape 'light' has the longest duration, with the shape 'triangle' with the shortest duration. They all have very similar average lengths.
 
 ## Step 3: Analysis results and conclusions
 
+From our graphs/visualizations, we conclude that the South region of the United States has the most UFO sightings between 1998 and 2014. 
