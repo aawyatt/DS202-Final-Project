@@ -109,13 +109,14 @@ There was the lowest recording sightings in 1998, and then a rise in sightings u
 ### Map plot
 
 ```{r}
-ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group = group)) +geom_point(aes(x = longitude, y = latitude))
+ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group = group)) + 
+  geom_point(aes(x = longitude, y = as.numeric(latitude)))
 ```
 
 ### Histogram (datetime)
 
 ```{r}
-ufo1 %>% ggplot(aes(x = datetime)) + geom_histogram()
+ufo1 %>% ggplot(aes(x = datetime)) + geom_histogram(bins = 10)
 ```
 
 
@@ -126,7 +127,8 @@ library(ggmosaic)
 
 ufo5 = ufo1 %>% filter(shape != "") %>% group_by(shape) %>% count() %>% arrange(desc(n))
 ufo5 = ufo5[1:5, ]
-ufo1 %>% filter(shape %in% ufo5$shape) %>% ggplot() + geom_mosaic(aes(x = shape, fill = factor(region), weight = 1))
+ufo1 %>% mutate(shape = factor(shape), region = factor(region)) %>% filter(shape %in% ufo5$shape) %>% ggplot() + 
+  geom_mosaic(aes(x = shape, fill = region, weight = 1))
 ```
 
 
