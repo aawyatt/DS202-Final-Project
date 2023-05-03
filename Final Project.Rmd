@@ -56,14 +56,14 @@ ufo1 = ufo1 %>% rename(Abbreviation = state) %>% filter(Abbreviation != "PR")
 ufo1 = right_join(ufo1, abbr, by = "Abbreviation")
 # states for which we do not have map data
 nomatch1 = ufo1 %>% anti_join(states, by = "State")
-unique(nomatch1$State)
+#unique(nomatch1$State)
 # states for which we do not have ufo data
 nomatch2 = states %>% anti_join(ufo1, by = "State")
-unique(nomatch2$State)
+#unique(nomatch2$State)
 # remove data for which we don't have map/ufo data for
 ufo1 = ufo1 %>% filter(!(State %in% c("Hawaii", "Alaska", "District of Columbia")))
 # add state map information to ufo1
-ufo1 = ufo1 %>% left_join(states, by = "State") %>% select(-group, -order, -subregion)
+ufo1 = ufo1 %>% left_join(states, by = "State") %>% select(-order, -subregion)
 # add region information to ufo1
 ufo1 = ufo1 %>% left_join(region, by = "State") %>% select(-State.Code, -Division)
 
@@ -109,17 +109,33 @@ There was the lowest recording sightings in 1998, and then a rise in sightings u
 ### Map plot
 
 ```{r}
-
-
+ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group = group)) +geom_point(aes(x = longitude, y = latitude))
 ```
 
 ### Histogram (datetime)
 
+```{r}
+ufo1 %>% ggplot(aes(x = datetime)) + geom_histogram()
+```
+
+
 
 ### Mosaic plot (regions vs shape)
+```{r}
+library(ggmosaic)
+
+ufo5 = ufo1 %>% filter(shape != "") %>% group_by(shape) %>% count() %>% arrange(desc(n))
+ufo5 = ufo5[1:5, ]
+ufo1 %>% filter(shape %in% ufo5$shape) %>% ggplot() + geom_mosaic(aes(x = shape, fill = factor(region), weight = 1))
+```
+
 
 
 ### Boxplot(shape vs number of sightings)
+```{r}
+ufo5 %>% ggplot(aes(x = shape, y = n)) + geom_boxplot()
+```
+
 
 ## Step 3: Analysis results and conclusions
 
