@@ -131,9 +131,9 @@ ufo1 %>% filter(shape %in% ufo5$shape) %>% ggplot() + geom_mosaic(aes(x = shape,
 
 
 
-### Boxplot(shape vs number of sightings)
+### Boxplot(shape vs length of sighting)
 ```{r}
-ufo5 %>% ggplot(aes(x = shape, y = n)) + geom_boxplot()
+ufo1 %>% filter(shape %in% ufo5$shape) %>% ggplot(aes(x = shape, y = log(as.numeric(duration..seconds.)))) + geom_boxplot() 
 ```
 
 
