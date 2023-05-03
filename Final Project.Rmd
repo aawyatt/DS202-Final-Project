@@ -98,7 +98,7 @@ ufo4 = ufo1 %>% group_by(city) %>% summarise(n=n()) %>% arrange(desc(n))
 ufo4 = ufo4[1 : 5, ]
 ufo4 %>% ggplot(aes(x = city)) + geom_bar(aes(weight = n)) + theme(axis.text = element_text(size = 5), axis.text.x=element_text(size=10),axis.text.y=element_text(size=10))
 ```
-We can see that California had the most sightings by far, with North Dakota having the least. The top states with the most sightings were California, Florida, Michigan, Texas, and Washington. The 5 states with the least sightings were South Dakota, Delaware, Rhode Island, Wyoming, and North Dakota. The 5 cities with the most sightings are Houston, Seattle, Austin, Miami, and San Antonio. 3 out of the 5 cities are in Texas.
+We can see that California had the most sightings by far, with North Dakota having the least. The top states with the most sightings were California, Florida, Michigan, Texas, and Washington. The 5 states with the least sightings were South Dakota, Delaware, Rhode Island, Wyoming, and North Dakota. The 5 cities with the most sightings are Houston, Seattle, Austin, Miami, and San Antonio. 3 out of the 5 cities are in Texas. The South and West regions have the most sightings. 
 
 ### Time series graph
 ```{r}
@@ -141,4 +141,4 @@ This boxplot shows the distribution of the length of the sighting by the top 5 s
 
 ## Step 3: Analysis results and conclusions
 
-From our graphs/visualizations, we conclude that the South region of the United States has the most UFO sightings between 1998 and 2014. 
+From our graphs/visualizations, we conclude that the South and West regions of the United States has the most UFO sightings between 1998 and 2014. There are individual analyses below each graph that led us to this conclusion.
