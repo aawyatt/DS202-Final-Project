@@ -115,7 +115,7 @@ ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group = gr
 ### Histogram (datetime)
 
 ```{r}
-ufo1 %>% ggplot(aes(x = datetime)) + geom_histogram()
+ufo1 %>% ggplot(aes(x = datetime)) + geom_histogram(bins = 10)
 ```
 
 
