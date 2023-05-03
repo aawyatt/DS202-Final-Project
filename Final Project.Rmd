@@ -122,7 +122,7 @@ ufo1 %>% ggplot(aes(x = datetime)) + geom_histogram()
 
 ### Mosaic plot (regions vs shape)
 ```{r}
-library(ggmosaic)
+library(ggmosaic) 
 
 ufo5 = ufo1 %>% filter(shape != "") %>% group_by(shape) %>% count() %>% arrange(desc(n))
 ufo5 = ufo5[1:5, ]
