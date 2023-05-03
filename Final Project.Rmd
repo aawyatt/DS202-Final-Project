@@ -113,6 +113,8 @@ ufo1$latitude = as.numeric(ufo1$latitude)
 ufo1 %>% ggplot(aes(x = long.border, y = lat.border)) + geom_path(aes(group= group)) + geom_point(aes(x=longitude,y=latitude), size=0.05, color = 'red', data = ufo1 %>% filter(longitude < 0, longitude > -130))
 ```
 
+Note: this plot does work, it takes a lot of time to load due to millions of responses.
+Each dot represents one sighting reported. We noticed a lot of sightings in the South. 
 ### Histogram (datetime)
 
 ```{r}
