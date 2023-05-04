@@ -75,8 +75,6 @@ ufo1 = ufo1 %>% select(-duration..hours.min., -comments)
 
 # rename long/lat variables for clarity
 ufo1 = ufo1 %>% rename(long.border = long, lat.border = lat)
-
-ufo1
 ```
 
 ## Step 2: Visual summary (6 out of 8 candidate plots)
